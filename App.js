@@ -5,6 +5,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
+import LoggedOutNav from "./navigators/LoggedOutNav";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,12 +35,10 @@ export default function App() {
     return null;
   }
   return (
-    <View
-      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-      onLayout={onLayoutRootView}
-    >
-      <Text>We are done loading!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      <NavigationContainer>
+        <LoggedOutNav />
+      </NavigationContainer>
     </View>
   );
 }
