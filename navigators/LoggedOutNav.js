@@ -8,7 +8,14 @@ const Stack = createNativeStackNavigator();
 
 export default function LoggedOutNav() {
   return (
-    <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
+    <Stack.Navigator
+      screenOptions={{
+        headerBackTitleVisible: false,
+        headerTitle: "",
+        headerTransparent: true,
+        headerTintColor: `${(props) => props.theme.textColor}`,
+      }}
+    >
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Login" component={LogIn} />
       <Stack.Screen name="CreateAccount" component={CreateAccount} />
