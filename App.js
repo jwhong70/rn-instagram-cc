@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StatusBar } from "react-native";
+import { View } from "react-native";
 import { useState, useEffect, useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { Asset } from "expo-asset";
@@ -10,12 +10,16 @@ import LoggedOutNav from "./navigators/LoggedOutNav";
 import { useColorScheme } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import { darkTheme, lightTheme } from "./styled";
+import { ApolloProvider, useReactiveVar } from "@apollo/client";
+import client, { isLoggedInVar } from "./apollo";
+import LoggedInNav from "./navigators/LoggedInNav";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const isDark = useColorScheme() === "dark";
   const [loading, setloading] = useState(false);
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
   useEffect(() => {
     async function prepare() {
       try {
@@ -40,11 +44,13 @@ export default function App() {
   }
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-        <NavigationContainer>
-          <LoggedOutNav />
-        </NavigationContainer>
-      </ThemeProvider>
+      <ApolloProvider client={client}>
+        <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+          <NavigationContainer>
+            {isLoggedIn ? <LoggedInNav /> : <LoggedOutNav />}
+          </NavigationContainer>
+        </ThemeProvider>
+      </ApolloProvider>
     </View>
   );
 }

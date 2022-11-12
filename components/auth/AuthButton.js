@@ -13,10 +13,14 @@ const ButtonText = styled.Text`
   font-weight: 600;
   text-align: center;
 `;
-export default function AuthButton({ onPress, disabled, text }) {
+export default function AuthButton({ onPress, disabled, text, loading }) {
   return (
     <Button disabled={disabled} onPress={onPress}>
-      <ButtonText>{text}</ButtonText>
+      {loading ? (
+        <ActivityIndicator color="white" />
+      ) : (
+        <ButtonText>{text}</ButtonText>
+      )}
     </Button>
   );
 }

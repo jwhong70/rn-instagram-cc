@@ -9,6 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.1",
+    "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
     "@types/styled-components-react-native": "^5.2.0",
@@ -17,6 +19,7 @@
     "expo-font": "~11.0.1",
     "expo-splash-screen": "~0.17.4",
     "expo-status-bar": "~1.4.2",
+    "graphql": "^16.6.0",
     "react": "18.1.0",
     "react-hook-form": "^7.39.3",
     "react-native": "0.70.5",
