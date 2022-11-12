@@ -1,7 +1,7 @@
 import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
-export default function Search({ navigation }) {
+export default function Photos({ navigation }) {
   return (
     <View
       style={{
@@ -12,9 +12,11 @@ export default function Search({ navigation }) {
       }}
     >
       <TouchableOpacity
-        onPress={() => navigation.navigate("StackPhotos", { screen: "Photos" })}
+        onPress={() =>
+          navigation.navigate("StackProfile", { screen: "Profile" })
+        }
       >
-        <Text style={{ color: "white" }}>Search</Text>
+        <Text style={{ color: "white" }}>Profile</Text>
       </TouchableOpacity>
     </View>
   );

@@ -6,6 +6,7 @@ import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
 import { View } from "react-native";
 import TabIcon from "../components/nav/TabIcon";
+import SharedStackNav from "./SharedStackNav";
 
 const Tabs = createBottomTabNavigator();
 export default function LoggedInNav() {
@@ -22,25 +23,27 @@ export default function LoggedInNav() {
       }}
     >
       <Tabs.Screen
-        name="Feed"
-        component={Feed}
+        name="TabFeed"
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <TabIcon iconName={"home"} color={color} focused={focused} />
           ),
         }}
-      />
+      >
+        {() => <SharedStackNav screenName="StackFeed" />}
+      </Tabs.Screen>
       <Tabs.Screen
-        name="Search"
-        component={Search}
+        name="TabSearch"
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <TabIcon iconName={"search"} color={color} focused={focused} />
           ),
         }}
-      />
+      >
+        {() => <SharedStackNav screenName="StackSearch" />}
+      </Tabs.Screen>
       <Tabs.Screen
-        name="Camera"
+        name="TabCamera"
         component={View}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
@@ -49,23 +52,25 @@ export default function LoggedInNav() {
         }}
       />
       <Tabs.Screen
-        name="Notifications"
-        component={Notifications}
+        name="TabNotifications"
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <TabIcon iconName={"heart"} color={color} focused={focused} />
           ),
         }}
-      />
+      >
+        {() => <SharedStackNav screenName="StackNotifications" />}
+      </Tabs.Screen>
       <Tabs.Screen
-        name="Profile"
-        component={Profile}
+        name="TabMe"
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <TabIcon iconName={"person"} color={color} focused={focused} />
           ),
         }}
-      />
+      >
+        {() => <SharedStackNav screenName="StackMe" />}
+      </Tabs.Screen>
     </Tabs.Navigator>
   );
 }
