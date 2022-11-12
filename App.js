@@ -11,8 +11,9 @@ import { useColorScheme } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import { darkTheme, lightTheme } from "./styled";
 import { ApolloProvider, useReactiveVar } from "@apollo/client";
-import client, { isLoggedInVar } from "./apollo";
+import client, { isLoggedInVar, tokenVar } from "./apollo";
 import LoggedInNav from "./navigators/LoggedInNav";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,6 +24,11 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
+        const token = await AsyncStorage.getItem("token");
+        if (token) {
+          isLoggedInVar(true);
+          tokenVar(token);
+        }
         await Font.loadAsync(Ionicons.font);
         await Asset.loadAsync(require("./assets/logo.png"));
         await new Promise((resolve) => setTimeout(resolve, 2000));
