@@ -1,11 +1,14 @@
 import React from "react";
-import { Text, View } from "react-native";
 import { gql, useQuery } from "@apollo/client";
 import { COMMENT_FRAGMENT, PHOTO_FRAGMENT } from "../fragments";
+import { FlatList } from "react-native";
+import ScreenLayout from "../components/ScreenLayout";
+import Photo from "../components/Photo";
+import { useState } from "react";
 
 const FEED_QUERY = gql`
-  query seeFeed {
-    seeFeed {
+  query seeFeed($offset: Int!) {
+    seeFeed(offset: $offset) {
       ...PhotoFragment
       user {
         id
@@ -25,17 +28,33 @@ const FEED_QUERY = gql`
 `;
 
 export default function Feed() {
-  const { data, loading } = useQuery(FEED_QUERY);
+  const { data, loading, refetch, fetchMore } = useQuery(FEED_QUERY, {
+    variables: { offset: 0 },
+  });
+  const renderPhoto = ({ item: photo }) => {
+    return <Photo {...photo} />;
+  };
+  const refresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
+  const [refreshing, setRefreshing] = useState(false);
   return (
-    <View
-      style={{
-        backgroundColor: "black",
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Text style={{ color: "white" }}>Feed</Text>
-    </View>
+    <ScreenLayout loading={loading}>
+      <FlatList
+        data={data?.seeFeed}
+        keyExtractor={(photo) => String(photo.id)}
+        renderItem={renderPhoto}
+        style={{ width: "100%" }}
+        showsVerticalScrollIndicator={false}
+        refreshing={refreshing}
+        onRefresh={refresh}
+        onEndReachedThreshold={0.5}
+        onEndReached={() =>
+          fetchMore({ variables: { offset: data?.seeFeed?.length } })
+        }
+      />
+    </ScreenLayout>
   );
 }

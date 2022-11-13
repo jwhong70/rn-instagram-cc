@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import { ActivityIndicator } from "react-native";
 
 const Button = styled.TouchableOpacity`
   background-color: ${(props) => props.theme.blue};
