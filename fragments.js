@@ -21,4 +21,14 @@ const COMMENT_FRAGMENT = gql`
     createdAt
   }
 `;
-export { PHOTO_FRAGMENT, COMMENT_FRAGMENT };
+const USER_FRAGMENT = gql`
+  fragment UserFragment on User {
+    id
+    username
+    avatar
+    isFollowing
+    isMe
+  }
+`;
+
+export { PHOTO_FRAGMENT, COMMENT_FRAGMENT, USER_FRAGMENT };

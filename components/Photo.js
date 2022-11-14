@@ -90,7 +90,10 @@ function Photo({ id, user, caption, file, isLiked, likes }) {
     <Container>
       <Header
         onPress={() =>
-          navigation.navigate("StackProfile", { screen: "Profile" })
+          navigation.navigate("StackProfile", {
+            screen: "Profile",
+            params: { username: user.username, id: user.id },
+          })
         }
       >
         <UserAvatar resizeMode="cover" source={{ uri: user.avatar }} />
@@ -120,14 +123,22 @@ function Photo({ id, user, caption, file, isLiked, likes }) {
           </Action>
         </Actions>
         <TouchableOpacity
-          onPress={() => navigation.navigate("StackLikes", { screen: "Likes" })}
+          onPress={() =>
+            navigation.navigate("StackLikes", {
+              screen: "Likes",
+              params: { photoId: id },
+            })
+          }
         >
           <Likes>{likes === 1 ? "1 like" : `${likes} likes`}</Likes>
         </TouchableOpacity>
         <Caption>
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate("StackProfile", { screen: "Profile" })
+              navigation.navigate("StackProfile", {
+                screen: "Profile",
+                params: { username: user.username, id: user.id },
+              })
             }
           >
             <Username>{user.username}</Username>
