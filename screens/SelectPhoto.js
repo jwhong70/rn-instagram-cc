@@ -56,7 +56,14 @@ export default function SelectPhoto({ navigation }) {
     }
   };
   const HeaderRight = () => (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate("UploadForm", {
+          screen: "UploadForm",
+          params: { file: photoLocal },
+        })
+      }
+    >
       <HeaderRightText>Next</HeaderRightText>
     </TouchableOpacity>
   );
@@ -65,7 +72,7 @@ export default function SelectPhoto({ navigation }) {
   }, []);
   useEffect(() => {
     navigation.setOptions({ headerRight: HeaderRight });
-  }, []);
+  }, [chosenPhoto, photoLocal]);
   const numColumns = 4;
   const { width } = Dimensions.get("window");
   const choosePhoto = async (id) => {

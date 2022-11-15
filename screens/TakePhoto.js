@@ -97,6 +97,10 @@ export default function TakePhoto({ navigation }) {
   const goToUpload = async (save) => {
     if (save) {
       await MediaLibrary.saveToLibraryAsync(takenPhoto);
+      navigation.navigate("UploadForm", {
+        screen: "UploadForm",
+        params: { file: takenPhoto },
+      });
     }
   };
   const onUpload = () => {
