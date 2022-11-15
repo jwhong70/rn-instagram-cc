@@ -13,7 +13,11 @@ export default function MessagesNav() {
       }}
     >
       <Stack.Screen name="Rooms" component={Rooms} />
-      <Stack.Screen name="Room" component={Room} />
+      <Stack.Screen
+        name="Room"
+        options={{ headerBackTitleVisible: false }}
+        component={Room}
+      />
     </Stack.Navigator>
   );
 }
